@@ -24,6 +24,31 @@ unlocked_icon_resized = unlocked_icon.subsample(2, 2)  # Change the subsample va
 root.geometry("500x600")
 
 
+def confirmation_box(message):
+    
+    answer = tk.BooleanVar()
+    answer.set(False)
+    
+    def action(ans):
+        answer.set(ans)
+        confirmation_box_frame.destroy()
+    
+    confirmation_box_frame = tb.LabelFrame(bootstyle='primary')
+    
+    message_lb = tb.Label(confirmation_box_frame, text=message, font=("Helvetica", 11), bootstyle='warning', justify=tk.CENTER,)
+    message_lb.pack(pady=30)
+    
+    cancel_btn = tb.Button(confirmation_box_frame, text='Cancel', bootstyle='danger', command=lambda: action(False))
+    cancel_btn.place(x=50, y=150)
+
+    yes_btn = tb.Button(confirmation_box_frame, text='Yes', bootstyle='Success', command=lambda: action(True))
+    yes_btn.place(x=200, y=150, width=70)
+    
+    confirmation_box_frame.place(x=100, y=120, width=320, height=220)
+    
+    root.wait_window(confirmation_box_frame)
+    return answer.get()
+
 
 def welcome_page():
     
@@ -214,6 +239,10 @@ def admin_login_page():
 def add_account_page():
 
     def forward_to_welcome_page():
+        
+        ans = confirmation_box(message="Do you want to Leave\nRegistration Form?")
+        
+        if ans:
             add_account_page_frame.destroy()
             root.update()
             welcome_page()
@@ -316,6 +345,7 @@ Student can Login into Account.""", justify=tk.LEFT, bootstyle='warning', font=(
     add_account_page_frame.pack(pady=5)
     add_account_page_frame.propagate(False)
     add_account_page_frame.configure(width=480, height=580)
+
 
 
 welcome_page()
