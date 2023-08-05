@@ -14,12 +14,16 @@ add_student_icon = tk.PhotoImage(file='images/add_student_img.png')
 locked_icon = tk.PhotoImage(file='images/locked.png')
 unlocked_icon = tk.PhotoImage(file='images/unlocked.png')
 
+add_student_pic_icon = tk.PhotoImage(file='images/add_image.png')
+
 # Resize the locked icon
 locked_icon_resized = locked_icon.subsample(2, 2)  # Change the subsample values to adjust the size
 unlocked_icon_resized = unlocked_icon.subsample(2, 2)  # Change the subsample values to adjust the size
 
 
 root.geometry("500x600")
+
+
 
 def welcome_page():
     
@@ -32,6 +36,11 @@ def welcome_page():
         welcome_page_frame.destroy()
         root.update()
         admin_login_page()
+    
+    def forward_to_create_account_page():
+        welcome_page_frame.destroy()
+        root.update()
+        add_account_page()
     
     welcome_page_frame = tb.LabelFrame(root, bootstyle='info')
 
@@ -59,7 +68,7 @@ def welcome_page():
     admin_login_img = tb.Label(welcome_page_frame, image=login_admin_icon)
     admin_login_img.place(x=50, y=200)
 
-    add_student_btn = tb.Button(welcome_page_frame, text="Login Student", bootstyle='info')
+    add_student_btn = tb.Button(welcome_page_frame, text="Create Account", bootstyle='info', command=forward_to_create_account_page)
     add_student_btn.place(x=150, y=325, width=200)
 
     add_student_img = tb.Label(welcome_page_frame, image=add_student_icon)
@@ -201,6 +210,112 @@ def admin_login_page():
     admin_login_page_frame.pack(pady=30)
     admin_login_page_frame.propagate(False)
     admin_login_page_frame.configure(width=400, height=500)
+
+def add_account_page():
+
+    def forward_to_welcome_page():
+            add_account_page_frame.destroy()
+            root.update()
+            welcome_page()
+
+    student_gender = tk.StringVar()
+    class_list = ['Form 1', 'Form 2', 'Form 3', 'Form 4', 'Form 5', 'LowerSixth', 'UpperSixth']
+
+    add_account_page_frame = tb.LabelFrame(root, bootstyle='primary')
+
+    #add picture
+    add_pic_section_frame = tb.LabelFrame(add_account_page_frame, bootstyle='primary')
+    add_pic_section_frame.place(x=10, y=5, width=105, height=105)
+
+    add_pic_btn = tb.Label(add_pic_section_frame, image=add_student_pic_icon)
+    add_pic_btn.pack()
+
+    student_name_lb = tb.Label(add_account_page_frame, text="Enter Student Name", font=('Helvetica', 12))
+    student_name_lb.place(x=5, y=130)
+
+    student_name_entry = tb.Entry(add_account_page_frame, font=('Helvetica', 12), bootstyle= 'primary')
+    student_name_entry.place(x=5, y=160, width=180)
+
+    student_gender_lb = tb.Label(add_account_page_frame, text="Select Student Gender", font=('Helvetica', 12))
+    student_gender_lb.place(x=5, y=210)
+
+    male_gender_btn = tb.Radiobutton(add_account_page_frame, text='Male', bootstyle='primary', variable=student_gender, value='male')
+    male_gender_btn.place(x=5, y=240)
+
+    female_gender_btn = tb.Radiobutton(add_account_page_frame, text='Female', bootstyle='primary', variable=student_gender, value='female')
+    female_gender_btn.place(x=85, y=240)
+
+    student_gender.set('male')
+
+
+    student_age_lb = tb.Label(add_account_page_frame, text="Enter Student Age", font=('Helvetica', 12))
+    student_age_lb.place(x=5, y=270)
+
+    student_age_entry = tb.Entry(add_account_page_frame, font=('Helvetica', 12), bootstyle= 'primary')
+    student_age_entry.place(x=5, y=300, width=180)
+
+    student_contact_lb = tb.Label(add_account_page_frame, text="Enter Phone Number", font=('Helvetica', 12))
+    student_contact_lb.place(x=5, y=350)
+
+    student_contact_entry = tb.Entry(add_account_page_frame, font=('Helvetica', 12), bootstyle= 'primary')
+    student_contact_entry.place(x=5, y=380, width=180)
+
+    student_class_lb = tb.Label(add_account_page_frame, text="Select Student Class", font=('Helvetica', 12))
+    student_class_lb.place(x=5, y=435)
+
+    select_class_cb = tb.Combobox(add_account_page_frame, bootstyle='primary', font=('Helvetica', 12), state="readonly", values=class_list)
+    select_class_cb.place(x=5, y=465, width=180, height=30)
+
+    student_id_lb = tb.Label(add_account_page_frame, text='Student ID Number:', font=('Helvetica', 12))
+    student_id_lb.place(x=235, y=25)
+
+    student_id_entry = tb.Entry(add_account_page_frame, font=('Helvetica', 14))
+    student_id_entry.place(x=380, y=20, width=80, height=30)
+
+    student_id_entry.insert(tk.END, '227018')
+    student_id_entry.config(state='readonly')
+
+    id_info_lb = tb.Label(add_account_page_frame, text="""Automatically Generated ID Number
+! Remember using this ID Number
+For Student to Login.""", justify=tk.LEFT, bootstyle='warning', font=('Helvetica', 8))
+    id_info_lb.place(x=240, y=65)
+
+
+    student_email_lb = tb.Label(add_account_page_frame, text="Enter Student Email", font=('Helvetica', 12))
+    student_email_lb.place(x=240, y=130)
+
+    student_email_entry = tb.Entry(add_account_page_frame, font=('Helvetica', 12), bootstyle= 'primary')
+    student_email_entry.place(x=240, y=160, width=180)
+
+    email_info_lb = tb.Label(add_account_page_frame, text="""Via Email Address Student
+Can Recover Account
+! In case Forgetting Password and also
+Student will get Future Notifications.""", justify=tk.LEFT, bootstyle='warning', font=('Helvetica', 8))
+    email_info_lb.place(x=240, y=200)
+
+
+    account_password_lb = tb.Label(add_account_page_frame, text="Create Account Password", font=('Helvetica', 12))
+    account_password_lb.place(x=240, y=270)
+
+    account_password_entry = tb.Entry(add_account_page_frame, font=('Helvetica', 12), bootstyle= 'primary')
+    account_password_entry.place(x=240, y=300, width=180)
+
+    password_info_lb = tb.Label(add_account_page_frame, text="""Via Student Create Password
+And Provided Student ID Number
+Student can Login into Account.""", justify=tk.LEFT, bootstyle='warning', font=('Helvetica', 8))
+    password_info_lb.place(x=240, y=345)
+
+
+    home_btn = tb.Button(add_account_page_frame, text='Home', bootstyle='info', command=forward_to_welcome_page)
+    home_btn.place(x=240, y=465)
+
+    submit_btn = tb.Button(add_account_page_frame, text='Submit', bootstyle='Success')
+    submit_btn.place(x=350, y=465)
+
+
+    add_account_page_frame.pack(pady=5)
+    add_account_page_frame.propagate(False)
+    add_account_page_frame.configure(width=480, height=580)
 
 
 welcome_page()
