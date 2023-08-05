@@ -23,6 +23,16 @@ root.geometry("500x600")
 
 def welcome_page():
     
+    def forward_to_student_login_page():
+        welcome_page_frame.destroy()
+        root.update()
+        student_login_page()
+    
+    def forward_to_admin_login_page():
+        welcome_page_frame.destroy()
+        root.update()
+        admin_login_page()
+    
     welcome_page_frame = tb.LabelFrame(root, bootstyle='info')
 
     heading_label = tb.Label(
@@ -37,13 +47,13 @@ def welcome_page():
 
 
     # Login Button
-    student_login_btn = tb.Button(welcome_page_frame, text="Login Student", bootstyle='info')
+    student_login_btn = tb.Button(welcome_page_frame, text="Login Student", bootstyle='info', command=forward_to_student_login_page)
     student_login_btn.place(x=150, y=125, width=200)
 
     student_login_img = tb.Label(welcome_page_frame, image=login_student_icon)
     student_login_img.place(x=50, y=100)
 
-    admin_login_btn = tb.Button(welcome_page_frame, text="Login Admin", bootstyle='info')
+    admin_login_btn = tb.Button(welcome_page_frame, text="Login Admin", bootstyle='info', command=forward_to_admin_login_page)
     admin_login_btn.place(x=150, y=225, width=200)
 
     admin_login_img = tb.Label(welcome_page_frame, image=login_admin_icon)
@@ -63,6 +73,8 @@ def welcome_page():
     
 
 def student_login_page():
+    
+    
     def show_hide_password(e):
         if password_entry['show'] == '*':
             password_entry.config(show='')
@@ -70,7 +82,11 @@ def student_login_page():
         else:
             password_entry.config(show='*')
             show_hide_btn.config(image=locked_icon_resized)
-        
+    
+    def forward_to_welcome_page(e):
+        student_login_page_frame.destroy()
+        root.update()
+        welcome_page()
 
     student_login_page_frame = tb.LabelFrame(root, bootstyle='info')
 
@@ -84,6 +100,12 @@ def student_login_page():
             justify=tk.CENTER,  # Center the text
         )
     heading_label.pack(padx=10, pady=10)
+    
+    #Back Button
+    back_btn = tb.Label(student_login_page_frame, text='←', bootstyle='danger', font=('Bold', 20))
+    back_btn.place(x=10, y=40)
+    # Bind the click event to the label
+    back_btn.bind("<Button-1>", forward_to_welcome_page)
 
     stud_icon_lb = tb.Label(student_login_page_frame, image=login_student_icon)
     stud_icon_lb.place(x=150, y=60)
@@ -118,6 +140,68 @@ def student_login_page():
     student_login_page_frame.configure(width=400, height=500)
 
 
+def admin_login_page():
+    def show_hide_password(e):
+        if password_entry['show'] == '*':
+            password_entry.config(show='')
+            show_hide_btn.config(image=unlocked_icon_resized)
+        else:
+            password_entry.config(show='*')
+            show_hide_btn.config(image=locked_icon_resized)
+            
+    def forward_to_welcome_page(e):
+        admin_login_page_frame.destroy()
+        root.update()
+        welcome_page()
+
+    admin_login_page_frame = tb.LabelFrame(root, bootstyle='success')
+
+    heading_label = tb.Label(
+                admin_login_page_frame,
+                text="Admin Login Page",
+                bootstyle="success",
+                font=("Helvetica", 14),
+                wraplength=300,  # Set the wrap length in pixels
+                justify=tk.CENTER,  # Center the text
+            )
+    heading_label.pack(padx=10, pady=10)
+    
+    #Back Button
+    back_btn = tb.Label(admin_login_page_frame, text='←', bootstyle='danger', font=('Bold', 20))
+    back_btn.place(x=10, y=40)
+    # Bind the click event to the label
+    back_btn.bind("<Button-1>", forward_to_welcome_page)
+
+    admin_icon_lb = tb.Label(admin_login_page_frame, image=login_admin_icon)
+    admin_icon_lb.place(x=150, y=60)
+
+    username_lb = tb.Label(admin_login_page_frame, text="Enter Admin UserName", font=("Helvetica", 12))
+    username_lb.place(x=95, y=160)
+
+    username_entry = tb.Entry(admin_login_page_frame, font=('Bold', 12), justify=tk.CENTER)
+    username_entry.place(x=95, y=200)
+
+    password_lb = tb.Label(admin_login_page_frame, text="Enter Admin Password", font=("Helvetica", 12))
+    password_lb.place(x=95, y=250)
+
+    password_entry = tb.Entry(admin_login_page_frame, font=('Bold', 12), justify=tk.CENTER, show='*')
+    password_entry.place(x=95, y=280)
+
+    show_hide_btn = tb.Label(admin_login_page_frame, image=locked_icon_resized)
+    show_hide_btn.place(x=300, y=285)
+    # Bind the click event to the label
+    show_hide_btn.bind("<Button-1>", show_hide_password)
+
+    login_btn = tb.Button(admin_login_page_frame, text="Login", bootstyle="success")
+    login_btn.place(x=90, y=340, width=200, height=40)
+
+    forgot_password_btn = tb.Button(admin_login_page_frame, text="⚠️ Forgot Password", bootstyle="warning-link")
+    forgot_password_btn.place(x=120, y=400)
+
+    admin_login_page_frame.pack(pady=30)
+    admin_login_page_frame.propagate(False)
+    admin_login_page_frame.configure(width=400, height=500)
 
 
+welcome_page()
 root.mainloop()
