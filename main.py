@@ -9,6 +9,49 @@ import sqlite3
 root = tb.Window(themename="darkly")
 root.title("Student Management + Registration System")
 
+
+fullname_message = ToastNotification(title="Error", 
+                          message= "Student Full Name is Required",
+                          duration=3000,
+                          alert=True,
+                          
+                          )
+
+age_message = ToastNotification(title="Error", 
+                          message= "Student Age is Required",
+                          duration=3000,
+                          alert=True,
+                          
+                          )
+class_message = ToastNotification(title="Error", 
+                          message= "Student Class is Required",
+                          duration=3000,
+                          alert=True,
+                          
+                          )
+
+contact_message = ToastNotification(title="Error", 
+                          message= "Student Contact Details is Required",
+                          duration=3000,
+                          alert=True,
+                          
+                          )
+
+email_message = ToastNotification(title="Error", 
+                          message= "Student Email is Required",
+                          duration=3000,
+                          alert=True,
+                          
+                          )
+
+password_message = ToastNotification(title="Error", 
+                          message= "Student Password is Required",
+                          duration=3000,
+                          alert=True,
+                          
+                          )
+
+
 login_student_icon = tk.PhotoImage(file='images/login_student_img.png')
 login_admin_icon = tk.PhotoImage(file='images/admin_img.png')
 add_student_icon = tk.PhotoImage(file='images/add_student_img.png')
@@ -253,6 +296,7 @@ def add_account_page():
             # Add student picture to picture button
             add_pic_btn.config(image=img)
             add_pic_btn.image = img
+    
 
     def forward_to_welcome_page():
         
@@ -262,6 +306,40 @@ def add_account_page():
             add_account_page_frame.destroy()
             root.update()
             welcome_page()
+    
+
+    
+    def check_input_validation():
+        if student_name_entry.get() == '':
+            student_name_entry.config(bootstyle='danger')
+            student_name_entry.focus()
+            #Show toast
+            fullname_message.show_toast()
+        elif student_age_entry.get() == '':
+            student_age_entry.config(bootstyle='danger')
+            student_age_entry.focus()
+            #Show toast
+            age_message.show_toast()
+        elif select_class_cb.get() == '':
+            select_class_cb.config(bootstyle='danger')
+            select_class_cb.focus()
+            #Show toast
+            class_message.show_toast()
+        elif student_contact_entry.get() == '':
+            student_contact_entry.config(bootstyle='danger')
+            student_contact_entry.focus()
+            #Show toast
+            contact_message.show_toast()
+        elif student_email_entry.get() == '':
+            student_email_entry.config(bootstyle='danger')
+            student_email_entry.focus()
+            #Show toast
+            email_message.show_toast()
+        elif account_password_entry.get() == '':
+            account_password_entry.config(bootstyle='danger')
+            account_password_entry.focus()
+            #Show toast
+            password_message.show_toast()
 
     student_gender = tk.StringVar()
     class_list = ['Form 1', 'Form 2', 'Form 3', 'Form 4', 'Form 5', 'LowerSixth', 'UpperSixth']
@@ -279,9 +357,11 @@ def add_account_page():
 
     student_name_lb = tb.Label(add_account_page_frame, text="Enter Student Name", font=('Helvetica', 12))
     student_name_lb.place(x=5, y=130)
+    
 
     student_name_entry = tb.Entry(add_account_page_frame, font=('Helvetica', 12), bootstyle= 'primary')
     student_name_entry.place(x=5, y=160, width=180)
+
 
     student_gender_lb = tb.Label(add_account_page_frame, text="Select Student Gender", font=('Helvetica', 12))
     student_gender_lb.place(x=5, y=210)
@@ -356,7 +436,7 @@ Student can Login into Account.""", justify=tk.LEFT, bootstyle='warning', font=(
     home_btn = tb.Button(add_account_page_frame, text='Home', bootstyle='info', command=forward_to_welcome_page)
     home_btn.place(x=240, y=465)
 
-    submit_btn = tb.Button(add_account_page_frame, text='Submit', bootstyle='Success')
+    submit_btn = tb.Button(add_account_page_frame, text='Submit', bootstyle='Success', command=check_input_validation)
     submit_btn.place(x=350, y=465)
 
 
