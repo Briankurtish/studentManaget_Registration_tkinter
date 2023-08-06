@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
+from tkinter.filedialog import askopenfile, askopenfilename
 from PIL import Image, ImageTk
 import ttkbootstrap as tb
 from ttkbootstrap.toast import ToastNotification
@@ -237,6 +238,21 @@ def admin_login_page():
     admin_login_page_frame.configure(width=400, height=500)
 
 def add_account_page():
+    
+    #Adding the student picture 
+    
+    pic_path = tk.StringVar()
+    pic_path.set('')
+    
+    def open_pic(e):
+        path = askopenfilename()
+        if path:
+            img = ImageTk.PhotoImage(Image.open(path).resize((100, 100)))
+            pic_path.set(path)
+
+            # Add student picture to picture button
+            add_pic_btn.config(image=img)
+            add_pic_btn.image = img
 
     def forward_to_welcome_page():
         
@@ -258,6 +274,8 @@ def add_account_page():
 
     add_pic_btn = tb.Label(add_pic_section_frame, image=add_student_pic_icon)
     add_pic_btn.pack()
+    # Bind the click event to the label
+    add_pic_btn.bind("<Button-1>", open_pic)
 
     student_name_lb = tb.Label(add_account_page_frame, text="Enter Student Name", font=('Helvetica', 12))
     student_name_lb.place(x=5, y=130)
