@@ -11,6 +11,8 @@ root.title("Student Management + Registration System")
 
 
 #Toast messages
+
+
 fullname_message = ToastNotification(title="Error", 
                           message= "Student Full Name is Required",
                           duration=3000,
