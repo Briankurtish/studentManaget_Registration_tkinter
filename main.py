@@ -356,6 +356,7 @@ def add_account_page():
     add_pic_btn = tb.Label(add_pic_section_frame, image=add_student_pic_icon)
     add_pic_btn.pack()
     # Bind the click event to the label
+    
     add_pic_btn.bind("<Button-1>", open_pic)
 
     student_name_lb = tb.Label(add_account_page_frame, text="Enter Student Name", font=('Helvetica', 12))
