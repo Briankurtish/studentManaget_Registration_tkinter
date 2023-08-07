@@ -334,6 +334,8 @@ def add_account_page():
             student_email_entry.config(bootstyle='danger')
             student_email_entry.focus()
             #Show toast
+            
+            
             email_message.show_toast()
         elif account_password_entry.get() == '':
             account_password_entry.config(bootstyle='danger')
