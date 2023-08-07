@@ -10,6 +10,7 @@ root = tb.Window(themename="darkly")
 root.title("Student Management + Registration System")
 
 
+#Toast messages
 fullname_message = ToastNotification(title="Error", 
                           message= "Student Full Name is Required",
                           duration=3000,
@@ -144,7 +145,6 @@ def welcome_page():
     add_student_img.place(x=50, y=300)
 
 
-
     welcome_page_frame.pack(pady=30)
     welcome_page_frame.propagate(False)
     welcome_page_frame.configure(width=400, height=420)
@@ -243,6 +243,8 @@ def admin_login_page():
                 justify=tk.CENTER,  # Center the text
             )
     heading_label.pack(padx=10, pady=10)
+    
+    
     
     #Back Button
     back_btn = tb.Label(admin_login_page_frame, text='←', bootstyle='danger', font=('Bold', 20))
