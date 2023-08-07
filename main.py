@@ -285,7 +285,6 @@ def admin_login_page():
 def add_account_page():
     
     #Adding the student picture 
-    
     pic_path = tk.StringVar()
     pic_path.set('')
     
