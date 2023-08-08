@@ -316,28 +316,38 @@ def add_account_page():
             student_name_entry.focus()
             #Show toast
             fullname_message.show_toast()
+            
         elif student_age_entry.get() == '':
             student_age_entry.config(bootstyle='danger')
             student_age_entry.focus()
             #Show toast
             age_message.show_toast()
+        
+        elif student_contact_entry.get() == '':
+            student_contact_entry.config(bootstyle='danger')
+            student_contact_entry.focus()
+            #show Toast
+            contact_message.show_toast()
+            
         elif select_class_cb.get() == '':
             select_class_cb.config(bootstyle='danger')
             select_class_cb.focus()
             #Show toast
             class_message.show_toast()
+            
         elif student_contact_entry.get() == '':
             student_contact_entry.config(bootstyle='danger')
             student_contact_entry.focus()
             #Show toast
             contact_message.show_toast()
+            
         elif student_email_entry.get() == '':
             student_email_entry.config(bootstyle='danger')
             student_email_entry.focus()
             #Show toast
-            
-            
             email_message.show_toast()
+        
+            
         elif account_password_entry.get() == '':
             account_password_entry.config(bootstyle='danger')
             account_password_entry.focus()
