@@ -6,6 +6,7 @@ import ttkbootstrap as tb
 from ttkbootstrap.toast import ToastNotification
 import sqlite3
 import re 
+import random
 
 root = tb.Window(themename="darkly")
 root.title("Student Management + Registration System")
@@ -322,6 +323,18 @@ def add_account_page():
         match = re.match(pattern=pattern , string=email)
         
         return match
+
+    def generate_id_number():
+        generated_id = ''
+        
+        for r in range(6):
+            generated_id += str(random.randint(0, 9))
+            
+            student_id_entry.config(state='normal')
+            student_id_entry.delete(0, "end")
+            student_id_entry.insert("end", generated_id)
+            student_id_entry.config(state='readonly')
+            
     
     
     def check_input_validation():
@@ -432,8 +445,10 @@ def add_account_page():
     student_id_entry = tb.Entry(add_account_page_frame, font=('Helvetica', 14))
     student_id_entry.place(x=380, y=20, width=80, height=30)
 
-    student_id_entry.insert(tk.END, '227018')
+    
     student_id_entry.config(state='readonly')
+    
+    generate_id_number()
 
     id_info_lb = tb.Label(add_account_page_frame, text="""Automatically Generated ID Number
 ! Remember using this ID Number
