@@ -351,6 +351,7 @@ def add_account_page():
         elif account_password_entry.get() == '':
             account_password_entry.config(bootstyle='danger')
             account_password_entry.focus()
+            
             #Show toast
             password_message.show_toast()
 
