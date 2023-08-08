@@ -5,6 +5,7 @@ from PIL import Image, ImageTk
 import ttkbootstrap as tb
 from ttkbootstrap.toast import ToastNotification
 import sqlite3
+import re 
 
 root = tb.Window(themename="darkly")
 root.title("Student Management + Registration System")
@@ -40,6 +41,12 @@ contact_message = ToastNotification(title="Error",
 
 email_message = ToastNotification(title="Error", 
                           message= "Student Email is Required",
+                          duration=3000,
+                          alert=True,
+                          
+                          )
+valid_email_message = ToastNotification(title="Error", 
+                          message= "Enter a Valid Email Address",
                           duration=3000,
                           alert=True,
                           
@@ -309,6 +316,13 @@ def add_account_page():
             welcome_page()
     
 
+    def check_invalid_email(email):
+        pattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+        
+        match = re.match(pattern=pattern , string=email)
+        
+        return match
+    
     
     def check_input_validation():
         if student_name_entry.get() == '':
@@ -346,7 +360,12 @@ def add_account_page():
             student_email_entry.focus()
             #Show toast
             email_message.show_toast()
-        
+
+        elif not check_invalid_email(email=student_email_entry.get().lower()):
+            student_email_entry.config(bootstyle='danger')
+            student_email_entry.focus()
+            #Show toast
+            valid_email_message.show_toast()
             
         elif account_password_entry.get() == '':
             account_password_entry.config(bootstyle='danger')
