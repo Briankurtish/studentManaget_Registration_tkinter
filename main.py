@@ -87,7 +87,17 @@ root.geometry("500x600")
 
 def init_database():
     if os.path.exists('students_account.db'):
-        pass
+        connection = sqlite3.connect('students_account.db')
+        
+        cursor = connection.cursor()
+        
+        cursor.execute("""
+            SELECT * FROM data                        
+        """)
+        
+        connection.commit()
+        #print("Cursor.fetchall()")
+        connection.close()
     else:
         connection = sqlite3.connect('students_account.db')
         
@@ -111,6 +121,22 @@ def init_database():
         
         connection.commit()
         connection.close()
+
+def check_id_already_exists(id_number):
+    connection = sqlite3.connect('students_account.db')
+        
+    cursor = connection.cursor()
+    
+    cursor.execute(""" 
+        SELECT id_number FROM data WHERE id_number == '{id_num}'
+                   """)
+    
+    connection.commit()
+    response = cursor.fetchall()
+    connection.close()
+    
+    return response
+
         
 def add_data(id_number, password, name, age, gender, phone_number, student_class, email, pic_data):
     connection = sqlite3.connect('students_account.db')
@@ -390,11 +416,15 @@ def add_account_page():
         for r in range(6):
             generated_id += str(random.randint(0, 9))
             
+        if not check_id_already_exists(id_number=generated_id):
+            
             student_id_entry.config(state='normal')
             student_id_entry.delete(0, "end")
             student_id_entry.insert("end", generated_id)
             student_id_entry.config(state='readonly')
-            
+        
+        else:
+            generate_id_number()    
     
     
     def check_input_validation():
