@@ -5,6 +5,7 @@ from PIL import Image, ImageTk
 import ttkbootstrap as tb
 from ttkbootstrap.toast import ToastNotification
 import sqlite3
+import os
 import re 
 import random
 
@@ -59,7 +60,12 @@ password_message = ToastNotification(title="Error",
                           alert=True,
                           
                           )
-
+account_creation = ToastNotification(title="Success", 
+                          message= "Student Account Created Successfully",
+                          duration=3000,
+                          alert=True,
+                          
+                          )
 
 login_student_icon = tk.PhotoImage(file='images/login_student_img.png')
 login_admin_icon = tk.PhotoImage(file='images/admin_img.png')
@@ -69,12 +75,66 @@ unlocked_icon = tk.PhotoImage(file='images/unlocked.png')
 
 add_student_pic_icon = tk.PhotoImage(file='images/add_image.png')
 
+
+
 # Resize the locked icon
 locked_icon_resized = locked_icon.subsample(2, 2)  # Change the subsample values to adjust the size
 unlocked_icon_resized = unlocked_icon.subsample(2, 2)  # Change the subsample values to adjust the size
 
 
 root.geometry("500x600")
+
+
+def init_database():
+    if os.path.exists('students_account.db'):
+        pass
+    else:
+        connection = sqlite3.connect('students_account.db')
+        
+        cursor = connection.cursor()
+        
+        cursor.execute("""
+            
+            CREATE TABLE data (
+                id_number text,
+                password text,
+                name text, 
+                age text,
+                gender text,
+                phone_number text,
+                class text,
+                email text,
+                image blob
+            )
+                        
+        """)
+        
+        connection.commit()
+        connection.close()
+        
+def add_data(id_number, password, name, age, gender, phone_number, student_class, email, pic_data):
+    connection = sqlite3.connect('students_account.db')
+        
+    cursor = connection.cursor()
+    
+    cursor.execute(f"""
+        
+        INSERT INTO data VALUES(
+            '{id_number}',
+            '{password}',
+            '{name}', 
+            '{age}',
+            '{gender}',
+            '{phone_number}',
+            '{student_class}',
+            '{email}',
+            ?
+        )
+                    
+    """, [pic_data])
+    
+    connection.commit()
+    connection.close()
 
 
 def confirmation_box(message):
@@ -386,6 +446,28 @@ def add_account_page():
             
             #Show toast
             password_message.show_toast()
+            
+        else:
+            
+            pic_data = b''
+            
+            if pic_path.get() != '':
+                resize_pic = Image.open(pic_path.get()).resize((100,100))
+                resize_pic.save('temp_pic.png')
+                
+                read_data = open('temp_pic.png', 'rb')
+                pic_data = read_data.read()
+                read_data.close()
+            
+            else:
+                read_data = open('images/add_student_img.png', 'rb')
+                pic_data = read_data.read()
+                read_data.close()
+            
+            add_data(id_number=student_id_entry.get(), password=account_password_entry.get(), name=student_name_entry.get(), age=student_age_entry.get(), 
+                     gender=student_gender.get(), phone_number=student_contact_entry.get(), student_class=select_class_cb.get(), email=student_email_entry.get(), pic_data=pic_data)
+            
+            account_creation.show_toast()
 
     student_gender = tk.StringVar()
     class_list = ['Form 1', 'Form 2', 'Form 3', 'Form 4', 'Form 5', 'LowerSixth', 'UpperSixth']
@@ -493,6 +575,6 @@ Student can Login into Account.""", justify=tk.LEFT, bootstyle='warning', font=(
     add_account_page_frame.configure(width=480, height=580)
 
 
-
+init_database()
 welcome_page()
 root.mainloop()
