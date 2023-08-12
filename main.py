@@ -597,7 +597,7 @@ Student can Login into Account.""", justify=tk.LEFT, bootstyle='warning', font=(
     home_btn.place(x=240, y=465)
 
     submit_btn = tb.Button(add_account_page_frame, text='Submit', bootstyle='Success', command=check_input_validation)
-    submit_btn.place(x=350, y=465)
+    submit_btn.place(x=350, y=465)    
 
 
     add_account_page_frame.pack(pady=5)
