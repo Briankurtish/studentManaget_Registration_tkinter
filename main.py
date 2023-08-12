@@ -565,20 +565,20 @@ def add_account_page():
     id_info_lb = tb.Label(add_account_page_frame, text="""Automatically Generated ID Number
 ! Remember using this ID Number
 For Student to Login.""", justify=tk.LEFT, bootstyle='warning', font=('Helvetica', 8))
-    id_info_lb.place(x=240, y=65)
+    id_info_lb.place(x=240, y=65)  
 
 
     student_email_lb = tb.Label(add_account_page_frame, text="Enter Student Email", font=('Helvetica', 12))
     student_email_lb.place(x=240, y=130)
 
     student_email_entry = tb.Entry(add_account_page_frame, font=('Helvetica', 12), bootstyle= 'primary')
-    student_email_entry.place(x=240, y=160, width=180)
+    student_email_entry.place(x=240, y=160, width=180)   
 
     email_info_lb = tb.Label(add_account_page_frame, text="""Via Email Address Student
 Can Recover Account
 ! In case Forgetting Password and also
 Student will get Future Notifications.""", justify=tk.LEFT, bootstyle='warning', font=('Helvetica', 8))
-    email_info_lb.place(x=240, y=200)
+    email_info_lb.place(x=240, y=200)   
 
 
     account_password_lb = tb.Label(add_account_page_frame, text="Create Account Password", font=('Helvetica', 12))
