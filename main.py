@@ -518,10 +518,12 @@ def add_account_page():
     
 
     student_name_entry = tb.Entry(add_account_page_frame, font=('Helvetica', 12), bootstyle= 'primary')
+    
     student_name_entry.place(x=5, y=160, width=180)
 
 
     student_gender_lb = tb.Label(add_account_page_frame, text="Select Student Gender", font=('Helvetica', 12))
+    
     student_gender_lb.place(x=5, y=210)
 
     male_gender_btn = tb.Radiobutton(add_account_page_frame, text='Male', bootstyle='primary', variable=student_gender, value='male')
