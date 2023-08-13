@@ -552,9 +552,11 @@ def add_account_page():
     select_class_cb.place(x=5, y=465, width=180, height=30)
 
     student_id_lb = tb.Label(add_account_page_frame, text='Student ID Number:', font=('Helvetica', 12))
+    
     student_id_lb.place(x=235, y=25)
 
     student_id_entry = tb.Entry(add_account_page_frame, font=('Helvetica', 14))
+    
     student_id_entry.place(x=380, y=20, width=80, height=30)
 
     
