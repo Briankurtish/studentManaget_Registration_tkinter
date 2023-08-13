@@ -578,6 +578,7 @@ For Student to Login.""", justify=tk.LEFT, bootstyle='warning', font=('Helvetica
 Can Recover Account
 ! In case Forgetting Password and also
 Student will get Future Notifications.""", justify=tk.LEFT, bootstyle='warning', font=('Helvetica', 8))
+    
     email_info_lb.place(x=240, y=200)   
 
 
