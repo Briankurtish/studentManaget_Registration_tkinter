@@ -543,9 +543,11 @@ def add_account_page():
     student_contact_lb.place(x=5, y=350)
 
     student_contact_entry = tb.Entry(add_account_page_frame, font=('Helvetica', 12), bootstyle= 'primary')
+    
     student_contact_entry.place(x=5, y=380, width=180)
 
     student_class_lb = tb.Label(add_account_page_frame, text="Select Student Class", font=('Helvetica', 12))
+    
     student_class_lb.place(x=5, y=435)
 
     select_class_cb = tb.Combobox(add_account_page_frame, bootstyle='primary', font=('Helvetica', 12), state="readonly", values=class_list)
