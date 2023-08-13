@@ -565,7 +565,9 @@ def add_account_page():
     id_info_lb = tb.Label(add_account_page_frame, text="""Automatically Generated ID Number
 ! Remember using this ID Number
 For Student to Login.""", justify=tk.LEFT, bootstyle='warning', font=('Helvetica', 8))
-    id_info_lb.place(x=240, y=65)  
+    
+    id_info_lb.place(x=240, y=65) 
+     
 
 
     student_email_lb = tb.Label(add_account_page_frame, text="Enter Student Email", font=('Helvetica', 12))
